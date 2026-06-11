@@ -25,7 +25,7 @@ final as (
         potential_duplicates,
         round(total_spend - lag(total_spend) over(order by transaction_month),2) as mom_spend_change,
         round((total_spend - lag(total_spend) over(order by transaction_month))/nullif(lag(total_spend) over(order by transaction_month),0)
-        *100,2) as mom_spend_pct_change,
+        *100,2) as mom_spend_pct_change
     from 
         monthly_summary
 )

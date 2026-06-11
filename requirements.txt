@@ -5,3 +5,4 @@ pdfplumber
 psycopg2-binary
 pandas
 python-dotenv
+dbt-postgres

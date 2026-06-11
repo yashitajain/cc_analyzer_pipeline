@@ -6,12 +6,12 @@ cleaned as (
         cast(date as date) as transaction_date,
         date_trunc('month', cast(date as date)) as transaction_month,
         date_trunc('year', cast(date as date)) as transaction_year,
-        dayofweek(cast(date as date)) as day_of_week,
+        EXTRACT(DOW FROM cast(date as date))::int as day_of_week,
         lower(trim(merchant)) as merchant_name,
         lower(trim(category)) as category_name,
         abs(amount) as amount,
         case when is_credit = True then 'credit' else 'debit' end as transaction_type,
-        count(*) over ( partition by date, merchant, amount) as duplicate_count,
+        count(*) over ( partition by date, merchant, amount) as duplicate_count
         from 
             source
         where   

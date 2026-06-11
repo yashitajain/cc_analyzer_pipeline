@@ -193,3 +193,10 @@ else:
         file_name="transactions.csv",
         mime="text/csv"
     )
+tab1, tab2, tab3 = st.tabs(["Overview","Transactions","Anomalies"]) 
+with tab1:
+    st.write("Overview")   
+with tab2:
+    st.write("Overview")   
+with tab3:
+    st.write("Overview")   

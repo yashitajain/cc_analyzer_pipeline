@@ -15,7 +15,6 @@ category_stats as (
 transactions_with_stats as (
     select 
     t.*,
-    c.category_name,
     c.category_mean,
     c.category_sd,
     c.category_count
@@ -39,8 +38,6 @@ anomaly_detection as (
         case when category_sd is not null and category_sd>0 and abs((amount-category_mean)/category_sd)>2 then True
         when category_count = 1 and amount>500 then True
         else False end as anomaly_flag,
-        case when category_sd is not null and category_sd>0
-        then round((amount-category_mean)/category_sd,2) else null end as z_score,
         case when category_sd is not null and category_sd>0 and abs((amount-category_mean)/category_sd)>2 then 'High zscore: significantly above category average'
         when category_count = 1 and amount>500 then 'Single large transaction in category'
         else 'Normal' end as anomaly_reason
@@ -57,7 +54,7 @@ final as (
         round(category_sd,2) as category_sd,
         z_score,
         anomaly_flag,
-        anomaly_reason,
+        anomaly_reason
     from 
         anomaly_detection
 )
