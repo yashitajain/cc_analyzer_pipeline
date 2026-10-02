@@ -664,7 +664,7 @@ else:
             variable_df = plan_month_df[
                 ~plan_month_df["category_name"].isin(["transfer", "credit"])
             ]
-            total_variable = variable_df["total_spend"].sum()
+            total_variable = float(variable_df["total_spend"].sum())
 
             st.dataframe(
                 variable_df[["category_name", "total_spend", "transaction_count"]],

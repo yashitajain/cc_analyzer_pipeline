@@ -128,6 +128,20 @@ def save_budget(conn, user_email, month, fixed_costs, category_budgets, savings,
     produced so a savings trend can be read back later without
     recomputing it from scratch."""
     month = _month_start(month)
+
+    # psycopg2's float adapter uses repr() for precision, and numpy>=2.0
+    # changed repr(np.float64(x)) to the string "np.float64(x)" -- which
+    # then gets embedded literally in the SQL instead of just the number,
+    # breaking the query (InvalidSchemaName: schema "np" does not exist).
+    # Any value here that traces back to a pandas/numpy computation (e.g.
+    # a DataFrame column .sum()) needs to be a plain Python float before
+    # it reaches psycopg2, so cast everything defensively at the boundary
+    # rather than relying on every caller to remember to do it upstream.
+    fixed_costs = {k: float(v) for k, v in fixed_costs.items()}
+    category_budgets = {k: float(v) for k, v in category_budgets.items()}
+    savings = float(savings)
+    savings_rate = float(savings_rate)
+
     cur = conn.cursor()
     cur.execute(
         """
