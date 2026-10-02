@@ -1,5 +1,7 @@
 .env
 __pycache__/
 *.pyc
-*.duckdb
 .DS_Store
+.streamlit/secrets.toml
+test_statement.pdf
+.agents/
