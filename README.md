@@ -354,7 +354,7 @@ MIT
 
 ## Author
 
-**Yashu Jain** — [GitHub](https://github.com/yashitajain) | [Email](mailto:jain.yashita26@gmail.com)
+**Yashita Jain** — [GitHub](https://github.com/yashitajain) | [Email](mailto:jain.yashita26@gmail.com)
 
 Building AI systems. Repositioning from analytics to AI/ML engineering.
 
