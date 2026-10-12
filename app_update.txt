@@ -1,0 +1,9 @@
+# Add these imports to your app.py (near the top with other imports)
+
+from api import upload, transactions, analytics
+
+# Then add these routes (in the "Include Routers" section)
+
+app.include_router(upload.router)
+app.include_router(transactions.router)
+app.include_router(analytics.router)
